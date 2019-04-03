@@ -13,7 +13,7 @@ LD            =	gfortran
 FC            =	gfortran   
 
 MAKEFILE      =	Makefile
-PROGRAM       =	test.x  
+PROGRAM       =	densprof.x  
 
 OBJS	      =	stff.o \
 		input.o\
