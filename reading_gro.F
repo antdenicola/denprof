@@ -14,6 +14,8 @@
 
 
       cnt = 0
+      read(7,*)
+      read(7,*)
       do i = 1, nat 
         read(7,90) dm1, dm2, dm3, dm4, x, y, z 
         if(dm3 == isel)then
@@ -29,27 +31,27 @@
 ! MAIN CYCLE
        b=0
        do j = 1, frms
+         read(7,*) ! empty lines for title and no. particles
+         read(7,*)
          do i = 1, nat
            read(7,90) dm1, dm2, dm3, dm4, x, y, z 
            if(dm3 == isel)then
-            if(dir == 'x' .or. dir == 'X')then
-              b = anint(x/bin) 
-            elseif(dir == 'y' .or. dir == 'Y')then
-              b = anint(y/bin)   
-            elseif(dir == 'z' .or. dir == 'Z')then
-              b = anint(z/bin)   
-            endif
-            if(b.gt.sl)then
-               print *, "**ERROR** particle is out of no. slice"
-               print *, b, sl, x, y, z
-               stop
-               go to 10
-            endif
-            if(b.eq.0)then
-               b = 1
-            endif
-            cnt_sl(b) = cnt_sl(b) + 1
-          endif
+              if(dir == 'x' .or. dir == 'X')then
+                b = int(x/bin) + 1.0d00
+              elseif(dir == 'y' .or. dir == 'Y')then
+                b = int(y/bin) + 1.0d00   
+              elseif(dir == 'z' .or. dir == 'Z')then
+                b = int(z/bin) + 1.0d00  
+              endif
+              if(b.gt.sl)then
+                print *, "**ERROR** particle is out of no. slice"
+                print *, b, sl, x, y, z
+                stop
+                go to 10
+              endif
+!             print *, "b is: ", b
+             cnt_sl(b) = cnt_sl(b) + 1
+           endif
          enddo
          read(7,*) ! blank line for the box
        enddo

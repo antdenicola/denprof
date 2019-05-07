@@ -2,7 +2,7 @@
       use stff
       implicit none
  
-
+      bin = 0.d00
       if(dir == "X" .or. dir == "x") then
          bin = bx/sl
          b_vol = bin*by*bz
@@ -17,7 +17,7 @@
       endif
 
        print *, 'no. slices:', sl  
-       print *, 'bin [nm]:', bin  
+       print *, 'bin size [nm]:', bin  
        print *, 'bin volume [nm^3]:', b_vol  
 
 
