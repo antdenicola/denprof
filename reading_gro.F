@@ -37,11 +37,11 @@
            read(7,90) dm1, dm2, dm3, dm4, x, y, z 
            if(dm3 == isel)then
               if(dir == 'x' .or. dir == 'X')then
-                b = int(x/bin) + 1.0d00
+                b = anint(x/bin) 
               elseif(dir == 'y' .or. dir == 'Y')then
-                b = int(y/bin) + 1.0d00   
+                b = anint(y/bin)    
               elseif(dir == 'z' .or. dir == 'Z')then
-                b = int(z/bin) + 1.0d00  
+                b = anint(z/bin)   
               endif
               if(b.gt.sl)then
                 print *, "**ERROR** particle is out of no. slice"
