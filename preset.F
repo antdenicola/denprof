@@ -2,17 +2,17 @@
       use stff
       implicit none
  
-      bin = 0.d00
+      bin = 0.0d00
       if(dir == "X" .or. dir == "x") then
-         bin = bx/sl
+         bin = bx/sl*1.0d00
          b_vol = bin*by*bz
       endif
       if(dir == "Y" .or. dir == "y") then
-         bin = by/sl
+         bin = by/sl*1.0d00
          b_vol = bin*bx*bz
       endif
       if(dir == "Z" .or. dir == "z") then
-         bin = bz/sl
+         bin = bz/sl*1.0d00
          b_vol = bin*bx*by
       endif
 

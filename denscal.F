@@ -18,32 +18,32 @@
       if(sym=='no'.or.sym=="NO".or.sym=='n'.or.sym=='N')then 
        if(ityp == "num") then
          do i = 1, sl
-            i_dns(i) = cnt_sl(i)/frms/b_vol
+            i_dns(i) = cnt_sl(i-1)/frms/b_vol
             write(12,*) bin*(i-1)+bin, i_dns(i)
          enddo
        elseif(ityp == "mass") then
          do i = 1, sl
-            i_dns(i) = (((cnt_sl(i)*mass)/frms)/b_vol) * (amu/1.0d-27)
+            i_dns(i) = (((cnt_sl(i-1)*mass)/frms)/b_vol) * (amu/1.0d-27)
             write(12,*) bin*(i-1)+bin, i_dns(i) 
          enddo
        elseif(ityp == "ele") then
          do i = 1, sl
-            i_dns(i) = ((cnt_sl(i)/frms)*ei)/b_vol
+            i_dns(i) = ((cnt_sl(i-1)/frms)*ei)/b_vol
             write(12,*) bin*(i-1)+bin, i_dns(i) 
          enddo
        endif
       elseif(sym=='yes'.or.sym=="YES".or.sym=='y'.or.sym=='Y')then
        if(ityp == "num") then
          do i = 1, sl
-            i_dns(i) = cnt_sl(i)/frms/b_vol
+            i_dns(i) = cnt_sl(i-1)/frms/b_vol
          enddo
        elseif(ityp == "mass") then
          do i = 1, sl
-            i_dns(i) = (((cnt_sl(i)*mass)/frms)/b_vol) * (amu/1.0d-27)
+            i_dns(i) = (((cnt_sl(i-1)*mass)/frms)/b_vol) * (amu/1.0d-27)
          enddo
        elseif(ityp == "ele") then
          do i = 1, sl
-            i_dns(i) = ((cnt_sl(i)/frms)*ei)/b_vol
+            i_dns(i) = ((cnt_sl(i-1)/frms)*ei)/b_vol
          enddo
        endif
        do i = 1, sl
