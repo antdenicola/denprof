@@ -25,8 +25,8 @@
            write(6,*) '--help print this help'
            write(6,*) '--ver print the version'
            write(6,*) 'Usage:'
-           write(6,*) './densprof.x -i trj.gro -o out.dat -dir X -sl 20 
-     +-type mass -m 18.016'
+           write(6,*) './densprof.x -in trj.gro -o out.dat -dir X -sl 20 
+     +-type mass -m 18.016 -sel W'
            write(6,*) 'NO MATTER ABOUT THE ORDER OF THE KEYS'
            stop
          end if
