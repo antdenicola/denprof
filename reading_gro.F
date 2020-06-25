@@ -9,7 +9,8 @@
       integer i, j, cnt, b 
       integer dm1, dm4
       real*16 x, y, z 
-      character(len=5) dm2, dm3
+      character(len=5) dm2
+      character(len=1) dm3
 
 
 
@@ -59,7 +60,7 @@
        enddo
           
 80     format(4i5,3f8.4)
-90     format(1a5, 2a5, 1a5, 3f8.4, 3f8.5)
+90     format(1a5, 1a5, 4x, 1a5, 1a5, 3f8.4, 3f8.5)
        return
 
 10     end subroutine
