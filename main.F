@@ -17,8 +17,8 @@
        sym="no"
 !### MAIN PROGRAM START ######       
        
-       print *, " Counting frames ..."
        call input
+       print *, " Counting frames ..."
        call preset
        call reading_gro
        print *, " Computing ..."
