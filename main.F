@@ -13,15 +13,22 @@
        sl=10
        fin='trj.gro'
        fout='out.dat'
+       frmt='gro'
        isel='W'
        sym="no"
 !### MAIN PROGRAM START ######       
        
        call input
-       print *, " Counting frames ..."
+       !print *, " Counting frames ..."
        call preset
-       call reading_gro
-       print *, " Computing ..."
+       if(frmt.eq.'gro')then
+         call reading_gro
+        ! print *, " Computing ..."
+       endif
+       if(frmt.eq.'occam')then
+         call reading_occ
+        ! print *, " Computing ..."
+       endif
        call denscal
 
        print *, " "

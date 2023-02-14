@@ -4,6 +4,7 @@
 
       integer :: i, j, k, stat
       integer argcount, lines
+      real tm
       character (len=50) wq_char
 
 
@@ -19,20 +20,21 @@
            write(6,*) '-ei electron of the selected particle'
            write(6,*) '-sel particle to select i.e.: W'
            write(6,*) '-sym symmetrize profile [yes]'
-           write(6,*) '-in input traj (gro)'
+           write(6,*) '-in input traj'
+           write(6,*) '-format [gro, occam]'
            write(6,*) '-o ouput'
            write(6,*) ''
            write(6,*) '--help print this help'
            write(6,*) '--ver print the version'
            write(6,*) 'Usage:'
-           write(6,*) './densprof.x -in trj.gro -o out.dat -dir X -sl 20 
-     +-type mass -m 18.016 -sel W'
+           write(6,*) './densprof.x -in trj.gro -format gro -o out.dat 
+     +-dir X -sl 20 -type mass -m 18.016 -sel W'
            write(6,*) 'NO MATTER ABOUT THE ORDER OF THE KEYS'
            stop
          end if
          if(INDEX(wq_char,'--ver').ne.0) then
            write(6,*)
-           write(6,*) 'Ver.: 1.2                          '
+           write(6,*) 'Ver.: 1.3                          '
            write(6,*) '+---------------------------------+'
            write(6,*) 'Author: Antonio De Nicola          '
            write(6,*) 'contacts: adenicola.chem@gmail.com '
@@ -63,6 +65,10 @@
            call getarg(i+1,wq_char)
            read(wq_char,*) fin
          endif
+         if(INDEX(wq_char,'-format').ne.0) then
+           call getarg(i+1,wq_char)
+           read(wq_char,*) frmt
+         endif
          if(INDEX(wq_char,'-o').ne.0) then
            call getarg(i+1,wq_char)
            read(wq_char,*) fout
@@ -81,34 +87,66 @@
       open(unit = 12, file= fout, status = 'UNKNOWN')
 
       lines=0
-      do
+
+!------------!
+! GRO FORMAT !
+!------------!
+      if(frmt.eq.'gro')then
+       do
          read(7,*,iostat=stat)
          if (stat/=0) exit
          lines=lines + 1
-      enddo
-      rewind(7)
+       enddo
+       rewind(7)
 
-      do i = 1, lines - 1
+       do i = 1, lines - 1
          read(7,*)
-      enddo
-      read(7,*) bx, by, bz
-      rewind(7)
+       enddo
+       read(7,*) bx, by, bz
+       rewind(7)
 
-      read(7,*)
-      read(7,*) nat
+       read(7,*)
+       read(7,*) nat
 
-      frms = lines/(nat+3)
-      rewind(7)
+       frms = lines/(nat+3)
+       rewind(7)
 
-      allocate(cnt_sl(sl))
-      do i = 1, sl
+       allocate(cnt_sl(sl))
+       do i = 1, sl
          cnt_sl(i) = 0
-      enddo
+       enddo
+      endif
 
+!--------------!
+! OCCAM FORMAT !
+!--------------!
+      if(frmt.eq.'occam')then
+       do
+         read(7,*,iostat=stat)
+         if (stat/=0) exit
+         lines=lines + 1
+       enddo
+       rewind(7)
+
+       read(7,*) nat
+       read(7,*) tm, bx, by, bz
+       bx = bx * 0.1d00
+       by = by * 0.1d00
+       bz = bz * 0.1d00
+
+       frms = lines/(nat+2)
+       rewind(7)
+
+       allocate(cnt_sl(sl))
+       do i = 1, sl
+         cnt_sl(i) = 0
+       enddo
+      endif
 !#### END #############
 
        print *, '----------------------------------------------------'
        print *, '-       Intial Settings                            -'
+       print *, 'format file: ', frmt
        print *, 'no. frms: ', frms
        print *, 'no. part.:', nat
        if(ityp == "mass")then
@@ -122,4 +160,5 @@
        endif
       
       return
+
       end subroutine
